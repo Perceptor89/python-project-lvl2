@@ -1,5 +1,5 @@
-import json
 from collections import OrderedDict
+from gendiff.parser import parse_file
 
 
 def to_str(value):
@@ -31,8 +31,8 @@ def stylish_formatter(diff_dict):
 
 
 def generate_diff(path_1, path_2):
-    file_1_data = json.load(open(path_1))
-    file_2_data = json.load(open(path_2))
+    file_1_data = parse_file(path_1)
+    file_2_data = parse_file(path_2)
 
     diffs = {}
 
