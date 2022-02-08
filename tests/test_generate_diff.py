@@ -9,6 +9,10 @@ test_data = [
     ('tests/fixtures/file1.yaml', 'tests/fixtures/file2.yaml',
     'stylish',
     'tests/fixtures/plane_diff.txt'),
+    ('tests/fixtures/file1_nested.json', 'tests/fixtures/file2_nested.json',
+    'stylish', 'tests/fixtures/nested_diff.txt'),
+    ('tests/fixtures/file1_nested.yaml', 'tests/fixtures/file2_nested.yaml',
+    'stylish', 'tests/fixtures/nested_diff.txt')
     ]
 
 
