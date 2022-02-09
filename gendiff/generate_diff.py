@@ -104,7 +104,7 @@ def get_diffs_dict(file_1_data, file_2_data):
     return OrderedDict(sorted(diffs.items()))
 
 
-def generate_diff(path_1, path_2):
+def generate_diff(path_1, path_2, format='stylish'):
     file_1_data = parse_file(path_1)
     file_2_data = parse_file(path_2)
 
