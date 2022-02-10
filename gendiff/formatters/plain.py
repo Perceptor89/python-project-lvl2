@@ -12,8 +12,10 @@ def to_str(value):
         return 'null'
     elif isinstance(value, bool):
         return str(value).lower()
-    else:
+    elif isinstance(value, str):
         return f"'{value}'"
+    else:
+        return value
 
 
 def format_in_plain(diffs_dict, parent_path=''):
