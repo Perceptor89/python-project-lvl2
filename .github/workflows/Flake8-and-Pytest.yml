@@ -1,4 +1,4 @@
-name: flake8_and_pytest-check
+name: Flake8-and-Pytest
 
 on: push
 
