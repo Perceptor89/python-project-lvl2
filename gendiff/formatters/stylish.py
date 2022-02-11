@@ -11,26 +11,26 @@ DIFF_STRING = '{0}{1}{2}: {3}'
 
 
 def to_str(value, depth=0):
-    if isinstance(value, bool):
-        return str(value).lower()
-    elif value is None:
-        return 'null'
-    elif isinstance(value, dict):
-        lines = []
-        depth_replacer = REPLACER * depth
-        for key, _value in value.items():
-            if isinstance(_value, dict):
-                lines.append(DIFF_STRING.format(
-                    depth_replacer, REPLACER, key, to_str(_value, depth + 1)
-                ))
-            else:
-                lines.append(DIFF_STRING.format(
-                    depth_replacer, REPLACER, key, to_str(_value)
-                ))
-        result = chain('{', lines, [depth_replacer + '}'])
-        return '\n'.join(result)
-    else:
+    output_dict = {
+        bool: str(value).lower(),
+        int: str(value),
+        str: value,
+        type(None): 'null',
+    }
+
+    if not isinstance(value, dict):
+        if type(value) in output_dict.keys():
+            return output_dict[type(value)]
         return str(value)
+
+    lines = []
+    depth_replacer = REPLACER * depth
+    for key, _value in value.items():
+        lines.append(DIFF_STRING.format(
+            depth_replacer, REPLACER, key, to_str(_value, depth + 1)
+        ))
+    result = chain('{', lines, [depth_replacer + '}'])
+    return '\n'.join(result)
 
 
 def format_in_stylish(diffs_dict, depth=0):

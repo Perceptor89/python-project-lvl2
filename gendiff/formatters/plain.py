@@ -6,16 +6,16 @@ DIFF_STRINGS = {
 
 
 def to_str(value):
-    if isinstance(value, dict):
-        return '[complex value]'
-    elif value is None:
-        return 'null'
-    elif isinstance(value, bool):
-        return str(value).lower()
-    elif isinstance(value, str):
-        return f"'{value}'"
-    else:
-        return value
+    output_dict = {
+        dict: '[complex value]',
+        type(None): 'null',
+        bool: str(value).lower(),
+        str: f"'{value}'"
+    }
+
+    if type(value) in output_dict.keys():
+        return output_dict[type(value)]
+    return str(value)
 
 
 def format_in_plain(diffs_dict, parent_path=''):
