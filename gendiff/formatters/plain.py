@@ -18,9 +18,9 @@ def to_str(value):
     return str(value)
 
 
-def format_in_plain(diffs_dict, parent_path=''):
+def format_in_plain(diffs, parent_path=''):
     lines = []
-    for key, diffs in diffs_dict.items():
+    for key, diffs in diffs.items():
         property_path = f'{parent_path}.{key}' if parent_path else f'{key}'
         status = diffs.get('status')
         diff = diffs.get('diff')

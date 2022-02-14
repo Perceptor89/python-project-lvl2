@@ -33,10 +33,10 @@ def to_str(value, depth=0):
     return '\n'.join(result)
 
 
-def format_in_stylish(diffs_dict, depth=0):
+def format_in_stylish(diffs, depth=0):
     lines = []
     depth_replacer = REPLACER * depth
-    for key, diff in diffs_dict.items():
+    for key, diff in diffs.items():
         status = diff.get('status')
         diff = diff.get('diff')
         if status == 'nested':

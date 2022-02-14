@@ -3,18 +3,24 @@ import json
 from gendiff import generate_diff
 
 
-def get_test_data():
-    with open('tests/fixtures/test_data.txt', 'r') as file:
-        data = file.read().splitlines()
-
-    test_data = []
-    index = 0
-    while index < len(data):
-        current_test_data = tuple(data[index:index + 4])
-        test_data.append(current_test_data)
-        index += 4
-
-    return test_data
+TESTS_DATA = [
+    ('tests/fixtures/file1.json', 'tests/fixtures/file2.json',
+     'stylish', 'tests/fixtures/plane_diff.txt'),
+    ('tests/fixtures/file1.yaml', 'tests/fixtures/file2.yaml',
+     'stylish', 'tests/fixtures/plane_diff.txt'),
+    ('tests/fixtures/file1_nested.json', 'tests/fixtures/file2_nested.json',
+     'stylish', 'tests/fixtures/nested_diff.txt'),
+    ('tests/fixtures/file1_nested.yaml', 'tests/fixtures/file2_nested.yaml',
+     'stylish', 'tests/fixtures/nested_diff.txt'),
+    ('tests/fixtures/file1_nested.json', 'tests/fixtures/file2_nested.json',
+     'plain', 'tests/fixtures/nested_diff_in_plain.txt'),
+    ('tests/fixtures/file1_nested.yaml', 'tests/fixtures/file2_nested.yaml',
+     'plain', 'tests/fixtures/nested_diff_in_plain.txt'),
+    ('tests/fixtures/file1_nested.json', 'tests/fixtures/file2_nested.json',
+     'json', 'tests/fixtures/nested_diff_in_json.txt'),
+    ('tests/fixtures/file1_nested.yaml', 'tests/fixtures/file2_nested.yaml',
+     'json', 'tests/fixtures/nested_diff_in_json.txt'),
+]
 
 
 def get_correct_file(path, fmt):
@@ -25,7 +31,7 @@ def get_correct_file(path, fmt):
             return file.read()
 
 
-@pytest.mark.parametrize('file1, file2, fmt, correct_path', get_test_data())
+@pytest.mark.parametrize('file1, file2, fmt, correct_path', TESTS_DATA)
 def test_generate_diff(file1, file2, fmt, correct_path):
     correct_file = get_correct_file(correct_path, fmt)
     if fmt == 'json':
