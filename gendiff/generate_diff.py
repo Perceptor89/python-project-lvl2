@@ -1,3 +1,4 @@
+import os
 from collections import OrderedDict
 from gendiff.parser import parse
 from gendiff.formatters.get_formatter import get_formatter
@@ -47,13 +48,16 @@ def build_diff(data_1, data_2):
     return OrderedDict(sorted(diffs.items()))
 
 
+def get_file_data(path):
+    file_name, file_extension = os.path.splitext(path)
+    with open(path) as file:
+        parsed_data = parse(file, file_extension)
+    return parsed_data
+
+
 def generate_diff(path_1, path_2, format_name='stylish'):
-    file_1_format = path_1.split('.')[-1]
-    file_2_format = path_2.split('.')[-1]
-    with open(path_1) as file_1:
-        data_1 = parse(file_1, file_1_format)
-    with open(path_2) as file_2:
-        data_2 = parse(file_2, file_2_format)
+    data_1 = get_file_data(path_1)
+    data_2 = get_file_data(path_2)
 
     diffs = build_diff(data_1, data_2)
 
